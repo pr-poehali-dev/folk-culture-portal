@@ -1,7 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
-const HERO_IMAGE = "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/files/3e43efda-9cc1-4e9a-a6b6-9a254d403730.jpg";
+const HERO_SLIDES = [
+  {
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/1eed7e06-2958-4dbc-806c-b10281e82561.jpg",
+    caption: "Туристы из Акмолинской области",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/322b8ab6-c2fb-456d-a307-8de5f962148e.jpg",
+    caption: "Открытие туристического сезона «Регион 55»",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/f4eabf1f-df5f-4dfa-9bb3-35e1f131844d.jpg",
+    caption: "Народный календарь кукол",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/545fcb69-e512-4c66-927e-56f71daa6feb.jpg",
+    caption: "Мастер-класс по засолке капусты",
+  },
+  {
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/4352b7b0-41fb-483e-8639-c53add71f69e.jpg",
+    caption: "Конференция в Красноярске",
+  },
+];
 
 const NEWS = [
   {
@@ -118,6 +139,14 @@ type Section = "home" | "news" | "events" | "gallery" | "documents";
 export default function Index() {
   const [activeSection, setActiveSection] = useState<Section>("home");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [slideIndex, setSlideIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setSlideIndex((i) => (i + 1) % HERO_SLIDES.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   const nav = [
     { id: "home", label: "Главная" },
@@ -222,14 +251,69 @@ export default function Index() {
       {/* HOME */}
       {activeSection === "home" && (
         <div>
-          {/* Hero */}
+          {/* Hero Slider */}
           <section className="relative overflow-hidden" style={{ minHeight: 520 }}>
-            <img src={HERO_IMAGE} alt="Центр народной культуры" className="absolute inset-0 w-full h-full object-cover" />
+            {/* Slides */}
+            {HERO_SLIDES.map((slide, i) => (
+              <img
+                key={slide.url}
+                src={slide.url}
+                alt={slide.caption}
+                className="absolute inset-0 w-full h-full object-cover"
+                style={{
+                  opacity: i === slideIndex ? 1 : 0,
+                  transition: "opacity 1s ease-in-out",
+                  zIndex: i === slideIndex ? 1 : 0,
+                }}
+              />
+            ))}
             <div
               className="absolute inset-0"
-              style={{ background: "linear-gradient(to right, rgba(42,21,6,0.88) 0%, rgba(42,21,6,0.6) 60%, rgba(42,21,6,0.2) 100%)" }}
+              style={{ background: "linear-gradient(to right, rgba(10,5,2,0.82) 0%, rgba(10,5,2,0.55) 55%, rgba(10,5,2,0.18) 100%)", zIndex: 2 }}
             />
-            <div className="relative container mx-auto px-4 py-24 flex flex-col justify-center" style={{ minHeight: 520 }}>
+            {/* Caption badge bottom right */}
+            <div
+              className="absolute bottom-6 right-6 px-3 py-1 text-xs"
+              style={{ background: "rgba(0,0,0,0.45)", color: "rgba(255,255,255,0.7)", zIndex: 3, backdropFilter: "blur(4px)" }}
+            >
+              {HERO_SLIDES[slideIndex].caption}
+            </div>
+            {/* Dot indicators */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2" style={{ zIndex: 3 }}>
+              {HERO_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlideIndex(i)}
+                  style={{
+                    width: i === slideIndex ? 24 : 8,
+                    height: 8,
+                    borderRadius: 4,
+                    background: i === slideIndex ? "var(--folk-gold)" : "rgba(255,255,255,0.4)",
+                    border: "none",
+                    cursor: "pointer",
+                    transition: "all 0.3s ease",
+                    padding: 0,
+                  }}
+                />
+              ))}
+            </div>
+            {/* Arrow buttons */}
+            <button
+              onClick={() => setSlideIndex((slideIndex - 1 + HERO_SLIDES.length) % HERO_SLIDES.length)}
+              className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all hover:opacity-80"
+              style={{ zIndex: 3, background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.2)", color: "white", width: 40, height: 40, borderRadius: "50%", cursor: "pointer" }}
+            >
+              <Icon name="ChevronLeft" size={20} />
+            </button>
+            <button
+              onClick={() => setSlideIndex((slideIndex + 1) % HERO_SLIDES.length)}
+              className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center transition-all hover:opacity-80"
+              style={{ zIndex: 3, background: "rgba(0,0,0,0.35)", border: "1px solid rgba(255,255,255,0.2)", color: "white", width: 40, height: 40, borderRadius: "50%", cursor: "pointer" }}
+            >
+              <Icon name="ChevronRight" size={20} />
+            </button>
+
+            <div className="relative container mx-auto px-4 py-24 flex flex-col justify-center" style={{ minHeight: 520, zIndex: 2 }}>
               <div className="max-w-2xl animate-fade-in-up">
                 <div
                   className="inline-block px-3 py-1 mb-4 text-xs font-medium tracking-widest uppercase"
@@ -242,16 +326,17 @@ export default function Index() {
                     fontFamily: "Cormorant Garamond, serif",
                     fontSize: "clamp(36px, 6vw, 68px)",
                     lineHeight: 1.1,
-                    color: "var(--folk-cream)",
+                    color: "#ffffff",
                     fontWeight: 600,
                     marginBottom: 20,
+                    textShadow: "0 2px 12px rgba(0,0,0,0.5)",
                   }}
                 >
                   Центр народной<br />
                   <span style={{ color: "var(--folk-ochre)" }}>традиционной культуры</span><br />
                   «Слобода»
                 </h1>
-                <p style={{ color: "rgba(245,237,216,0.8)", fontSize: 17, lineHeight: 1.7, maxWidth: 480 }}>
+                <p style={{ color: "rgba(255,255,255,0.88)", fontSize: 17, lineHeight: 1.7, maxWidth: 480, textShadow: "0 1px 6px rgba(0,0,0,0.5)" }}>
                   Сохраняем и передаём живое наследие народного искусства — вышивку, песни, ремёсла и обряды наших предков.
                 </p>
                 <div className="flex flex-wrap gap-3 mt-8">
