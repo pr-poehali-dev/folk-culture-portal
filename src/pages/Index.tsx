@@ -15,8 +15,8 @@ const HERO_SLIDES = [
     caption: "Народный календарь кукол",
   },
   {
-    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/545fcb69-e512-4c66-927e-56f71daa6feb.jpg",
-    caption: "Мастер-класс по засолке капусты",
+    url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/9cb890d4-b6ee-4fd0-bc41-35dd62d244ad.jpg",
+    caption: "Летопроводец Петрушка",
   },
   {
     url: "https://cdn.poehali.dev/projects/c51b58f8-9c32-4de0-b203-6925cd3e2fc7/bucket/4352b7b0-41fb-483e-8639-c53add71f69e.jpg",
