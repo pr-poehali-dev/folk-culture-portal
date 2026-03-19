@@ -158,10 +158,10 @@ export default function Index() {
             </div>
             <div className="text-left">
               <div style={{ fontFamily: "Cormorant Garamond, serif", color: "var(--folk-cream)", fontSize: 16, fontWeight: 600, lineHeight: 1.2 }}>
-                Центр народной
+                Центр народной культуры
               </div>
               <div style={{ fontFamily: "Cormorant Garamond, serif", color: "var(--folk-ochre)", fontSize: 13, fontWeight: 400, lineHeight: 1.2 }}>
-                традиционной культуры
+                «Слобода»
               </div>
             </div>
           </button>
@@ -248,8 +248,8 @@ export default function Index() {
                   }}
                 >
                   Центр народной<br />
-                  <span style={{ color: "var(--folk-ochre)" }}>традиционной</span><br />
-                  культуры
+                  <span style={{ color: "var(--folk-ochre)" }}>традиционной культуры</span><br />
+                  «Слобода»
                 </h1>
                 <p style={{ color: "rgba(245,237,216,0.8)", fontSize: 17, lineHeight: 1.7, maxWidth: 480 }}>
                   Сохраняем и передаём живое наследие народного искусства — вышивку, песни, ремёсла и обряды наших предков.
@@ -608,10 +608,10 @@ export default function Index() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div>
               <h3 style={{ fontFamily: "Cormorant Garamond, serif", color: "var(--folk-ochre)", fontSize: 22, fontWeight: 600, marginBottom: 12 }}>
-                ЦНТК
+                «Слобода»
               </h3>
               <p style={{ color: "rgba(245,237,216,0.6)", fontSize: 14, lineHeight: 1.7 }}>
-                Центр народной традиционной культуры — место, где живут и передаются из поколения в поколение народные традиции.
+                Центр народной традиционной культуры «Слобода» — место, где живут и передаются из поколения в поколение народные традиции.
               </p>
             </div>
             <div>
@@ -651,7 +651,7 @@ export default function Index() {
             className="pt-6 text-center"
             style={{ borderTop: "1px solid rgba(200,130,10,0.2)", color: "rgba(245,237,216,0.35)", fontSize: 13 }}
           >
-            © 2026 Центр народной традиционной культуры. Все права защищены.
+            © 2026 Центр народной традиционной культуры «Слобода». Все права защищены.
           </div>
         </div>
       </footer>
